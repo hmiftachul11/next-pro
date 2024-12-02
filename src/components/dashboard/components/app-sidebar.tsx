@@ -50,11 +50,11 @@ const data = {
       url: "/dashboard/activity",
       icon: MapPin,
     },
-    // {
-    //   name: "Data Transaksi",
-    //   url: "/dashboard/transaksi",
-    //   icon: ShoppingCart,
-    // },
+    {
+      name: "Data Transaksi",
+      url: "/dashboard/transaksi",
+      icon: ShoppingCart,
+    },
     {
       name: "Data User",
       url: "/dashboard/users",

@@ -51,7 +51,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4">
       {/* Search Input */}
-      <div className="flex items-center gap-2 w-full max-w-sm">
+      {/* <div className="flex items-center gap-2 w-full max-w-sm">
         <Search className="h-4 w-4 text-gray-500" />
         <Input
           placeholder="Search..."
@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="h-8"
         />
-      </div>
+      </div> */}
 
       <div className="rounded-md border">
         <Table>

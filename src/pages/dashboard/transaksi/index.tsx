@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Pencil } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 import { TableSkeleton } from "@/components/content/Skeleton";
 import UseGetAllTransaksi from "@/hooks/dashboard/transaksi/useGetAllTransaksi";
 import { DataTable } from "@/components/ui/data-table";
@@ -91,11 +91,11 @@ const StatusBadge = ({ status }: { status: string }) => {
   );
 };
 
-const TransactionTable = ({
-  data,
-  status,
-  isLoading,
-}: {
+const TransactionTable = ({ 
+  data, 
+  status, 
+  isLoading 
+}: { 
   data: Transaksi[];
   status: string;
   isLoading: boolean;
@@ -104,40 +104,85 @@ const TransactionTable = ({
     (transaction) => transaction.status.toLowerCase() === status.toLowerCase()
   );
 
+  
+
   const columns: ColumnDef<Transaksi>[] = [
     ...baseColumns,
     {
       accessorKey: "status",
-      header: "Status",
+      header: ({ column }) => (
+        <div className="text-sm font-semibold text-gray-700">Status</div>
+      ),
       cell: ({ row }) => <StatusBadge status={row.getValue("status")} />,
     },
   ];
 
-  if (isLoading) return <TableSkeleton />;
+  if (isLoading) {
+    return (
+      <Card className="w-full">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-center space-x-4">
+            <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+            <p className="text-gray-600">Loading transactions...</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
-    <div className="bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden">
-      {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-4">
-        <h2 className="text-2xl font-semibold">
-          {status.charAt(0).toUpperCase() + status.slice(1)} Transactions
-        </h2>
-        <p className="text-sm mt-1">
-          Managing {filteredData.length} transaction(s)
-        </p>
-      </div>
+    <Card className="w-full overflow-hidden">
+      <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-800 p-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-semibold text-white">
+              {status.charAt(0).toUpperCase() + status.slice(1)} Transactions
+            </h2>
+            <div className="flex items-center mt-2 space-x-2">
+              <Badge variant="secondary" className="bg-white/20 text-white border-0">
+                {filteredData.length} transaction{filteredData.length !== 1 ? 's' : ''}
+              </Badge>
+              {status === 'pending' && (
+                <Badge variant="secondary" className="bg-yellow-400 text-yellow-900 border-0">
+                  Requires Action
+                </Badge>
+              )}
+            </div>
+          </div>
+        </div>
+      </CardHeader>
 
-      {/* Table Section */}
-      <div className="p-6">
+      <CardContent className="p-0">
         {filteredData.length === 0 ? (
-          <div className="text-center text-gray-500 py-10">
-            No transactions found for this status.
+          <div className="flex flex-col items-center justify-center py-16 px-4">
+            <div className="bg-gray-100 rounded-full p-3 mb-4">
+              <svg
+                className="h-6 w-6 text-gray-400"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-1">No transactions found</h3>
+            <p className="text-gray-500 text-center max-w-sm">
+              There are currently no {status.toLowerCase()} transactions to display.
+            </p>
           </div>
         ) : (
-          <DataTable columns={columns} data={filteredData} />
+          <div className="border-t border-gray-200">
+            <DataTable
+              columns={columns}
+              data={filteredData}
+            />
+          </div>
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

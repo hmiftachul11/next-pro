@@ -198,9 +198,9 @@ export default function Header() {
                 <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Konfirmasi Logout</AlertDialogTitle>
+                      <AlertDialogTitle>Confirmation Logout</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Apakah Anda yakin ingin keluar dari akun Anda?
+                        Are you sure you want to log out of your account?
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

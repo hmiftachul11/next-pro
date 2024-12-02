@@ -34,7 +34,7 @@ const CreateTransaksi: React.FC<CreateTransaksiProps> = ({
   return (
     <>
       <Button className="w-full mt-6" onClick={() => setIsAlertOpen(true)}>
-        Lanjutkan Pembayaran
+        Continue Payment
       </Button>
 
       <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
@@ -42,17 +42,17 @@ const CreateTransaksi: React.FC<CreateTransaksiProps> = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Proceed to Checkout</AlertDialogTitle>
             <AlertDialogDescription>
-              Apakah Anda yakin ingin melanjutkan pembayaran?
+              Are you sure you want to continue paying?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isLoading}>Batal</AlertDialogCancel>
+            <AlertDialogCancel disabled={isLoading}>cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleCreateTransaksi}
               disabled={isLoading}
               className={isLoading ? "opacity-50 cursor-not-allowed" : ""}
             >
-              {isLoading ? "Processing..." : "Lanjutkan Pembayaran"}
+              {isLoading ? "Processing..." : "Continue Payment"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

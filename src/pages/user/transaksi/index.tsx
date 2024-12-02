@@ -70,13 +70,10 @@ const TransaksiPage = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-6 py-8">
+      <div className="container min-h-screen mx-auto px-6 py-8 mt-[5rem]">
         {/* Header Section */}
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-6 rounded-xl shadow-md mb-10">
-          <h1 className="text-3xl font-bold">Transaction Dashboard</h1>
-          <p className="mt-2 text-lg">
-            Overview of all transactions in a clean and organized manner.
-          </p>
+        <div className="bg-gradient-to-br from-[#4392F7] to-purple-600 text-white p-6 rounded-xl shadow-md mb-10">
+          <h1 className="text-3xl font-bold">Transaction History</h1>
         </div>
 
         {/* Summary Section */}
@@ -87,7 +84,7 @@ const TransaksiPage = () => {
               <p className="text-3xl font-bold text-gray-800">{data.length}</p>
             </div>
             <div className="bg-indigo-100 p-3 rounded-full">
-              <Receipt className="h-8 w-8 text-indigo-500" />
+              <Receipt className="h-8 w-8 text-[#4392F7]" />
             </div>
           </div>
 
@@ -101,7 +98,7 @@ const TransaksiPage = () => {
               </p>
             </div>
             <div className="bg-purple-100 p-3 rounded-full">
-              <CreditCard className="h-8 w-8 text-purple-500" />
+              <CreditCard className="h-8 w-8 text-[#4392F7]" />
             </div>
           </div>
 
@@ -138,7 +135,6 @@ const TransaksiPage = () => {
                   <th className="px-6 py-3">Payment Method</th>
                   <th className="px-6 py-3">Order Date</th>
                   <th className="px-6 py-3">Expired Date</th>
-                  <th className="px-6 py-3">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -178,22 +174,6 @@ const TransaksiPage = () => {
                     <td className="px-6 py-3">{transaction.payment_method.name}</td>
                     <td className="px-6 py-3">{FORMAT_DATE(transaction.orderDate)}</td>
                     <td className="px-6 py-3">{FORMAT_DATE(transaction.expiredDate)}</td>
-                    <td className="px-6 py-3">
-                      <div className="flex items-center space-x-2">
-                        <button
-                          className="text-blue-600 hover:bg-blue-50 p-2 rounded"
-                          aria-label={`Edit transaction ${transaction.invoiceId}`}
-                        >
-                          <Edit3Icon className="h-5 w-5" />
-                        </button>
-                        <button
-                          className="text-red-600 hover:bg-red-50 p-2 rounded"
-                          aria-label={`Delete transaction ${transaction.invoiceId}`}
-                        >
-                          <Trash2Icon className="h-5 w-5" />
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))}
               </tbody>
