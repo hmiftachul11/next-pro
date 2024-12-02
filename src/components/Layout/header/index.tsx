@@ -164,9 +164,9 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                {/* <Link href="/user/cart" className="pr-4">
+                <Link href="/user/cart" className="pr-4">
                   <Icon icon="mdi:cart-outline" fontSize={28} />
-                </Link> */}
+                </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <div className="flex justify-center items-center gap-2">

@@ -54,10 +54,10 @@ const routesMap: Record<string, RouteConfig> = {
     label: "Data Activity",
     href: "/dashboard/activity",
   },
-  // transaksi: {
-  //   label: "Data Transaksi",
-  //   href: "/dashboard/transaksi",
-  // },
+  transaksi: {
+    label: "Data Transaksi",
+    href: "/dashboard/transaksi",
+  },
   users: {
     label: "Data Users",
     href: "/dashboard/users/",
