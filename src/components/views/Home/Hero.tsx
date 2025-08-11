@@ -9,7 +9,8 @@ import ShimmerButton from "@/components/ui/shimmer-button";
 import BoxReveal from "@/components/ui/box-reveal";
 
 const HeroSection = () => {
-  const [loading, setLoading] = useState(true); // Simulate loading state
+  const [loading, setLoading] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -20,26 +21,52 @@ const HeroSection = () => {
     }
   };
 
+  // Handle scroll for parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Simulate data loading
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500); // Simulate 1.5s load
+    const timer = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="bg-blue-100 font-sans">
-      <div
-        className="mx-auto h-screen"
-        style={{
-          backgroundImage: "url(./hero.webp)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start justify-between h-full pt-16 lg:pt-32">
+    <div className="bg-blue-100 font-sans overflow-hidden">
+      <div className="relative h-screen">
+        {/* Parallax Background */}
+        <div 
+          className="absolute inset-0 w-full h-[120%]"
+          style={{
+            backgroundImage: "url(./hero.webp)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            transform: `translateY(${scrollY * 0.5}px)`,
+            willChange: "transform"
+          }}
+        />
+        
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-20" />
+
+        {/* Content Container */}
+        <div className="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start justify-between h-full pt-16 lg:pt-32">
           {/* Skeleton Loading */}
           {loading ? (
-            <div className="w-full lg:w-3/5 px-4 mt-16 sm:mt-24 lg:mt-32 bg-[#f0f4fa] bg-opacity-60 p-6 sm:p-8 rounded-xl animate-pulse">
+            <div 
+              className="w-full lg:w-3/5 px-4 mt-16 sm:mt-24 lg:mt-32 bg-[#f0f4fa] bg-opacity-60 p-6 sm:p-8 rounded-xl animate-pulse"
+              style={{
+                transform: `translateY(${scrollY * 0.2}px)`,
+                willChange: "transform"
+              }}
+            >
               <div className="h-8 sm:h-10 lg:h-12 bg-gray-300 rounded-md mb-4"></div>
               <div className="h-6 sm:h-8 lg:h-10 bg-gray-300 rounded-md mb-6"></div>
               <div className="h-6 bg-gray-300 rounded-md w-3/4 mb-4"></div>
@@ -47,8 +74,14 @@ const HeroSection = () => {
               <div className="mt-6 w-full sm:w-44 lg:w-64 h-12 md:h-14 bg-gray-300 rounded-full"></div>
             </div>
           ) : (
-            // Text Section
-            <div className="w-full lg:w-3/5 px-4 mt-16 sm:mt-24 lg:mt-32 bg-[#e4f6ff] bg-opacity-60 p-6 sm:p-8 rounded-xl">
+            // Text Section with Parallax
+            <div 
+              className="w-full lg:w-3/5 px-4 mt-16 sm:mt-24 lg:mt-32 bg-[#e4f6ff] bg-opacity-70 backdrop-blur-sm p-6 sm:p-8 rounded-xl shadow-lg"
+              style={{
+                transform: `translateY(${scrollY * 0.2}px)`,
+                willChange: "transform"
+              }}
+            >
               <p
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold"
                 style={{ lineHeight: "1.3" }}
@@ -66,7 +99,7 @@ const HeroSection = () => {
               </p>
 
               <Link href="/activity">
-                <ShimmerButton className="bg-gradient-to-r from-[#4088EE] to-[#3D81E1] text-white font-semibold w-full sm:w-44 lg:w-64 h-12 md:h-14 text-sm md:text-lg rounded-full transition duration-300 ease-in-out hover:from-[#5C91E0] hover:to-[#2D69C1]">
+                <ShimmerButton className="bg-gradient-to-r from-[#4088EE] to-[#3D81E1] text-white font-semibold w-full sm:w-44 lg:w-64 h-12 md:h-14 text-sm md:text-lg rounded-full transition duration-300 ease-in-out hover:from-[#5C91E0] hover:to-[#2D69C1] transform hover:scale-105">
                   Start Your Adventure
                 </ShimmerButton>
               </Link>
